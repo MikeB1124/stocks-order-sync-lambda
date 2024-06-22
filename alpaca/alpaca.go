@@ -22,6 +22,7 @@ func init() {
 func GetAllAlpacaOrders() ([]alpaca.Order, error) {
 	orders, err := client.GetOrders(alpaca.GetOrdersRequest{
 		Nested: true,
+		Status: "all",
 	})
 	if err != nil {
 		return nil, err
