@@ -4,15 +4,15 @@ import (
 	"context"
 	"log"
 
-	stockslambdautils "github.com/MikeB1124/stocks-lambda-utils"
-	"github.com/MikeB1124/stocks-order-sync-lambda/clients"
+	stockslambdautils "github.com/MikeB1124/stocks-lambda-utils/v2"
+	"github.com/MikeB1124/stocks-order-sync-lambda/configuration"
 	"github.com/aws/aws-lambda-go/events"
 )
 
 func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	// Fetch all Alpaca orders
-	allAlpacaOrders, err := clients.AlpacaClient.GetAllAlpacaOrders()
+	allAlpacaOrders, err := configuration.AlpacaClient.GetAllAlpacaOrders()
 	if err != nil {
 		log.Println("Unable to get Alpaca orders")
 		return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get Alpaca orders", StatusCode: 500})
@@ -22,7 +22,7 @@ func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequ
 	totalUpdatedOrders := 0
 	orderIDsNotInDB := []string{}
 	for _, order := range allAlpacaOrders {
-		updateResult, err := clients.MongoClient.UpateOrder(order)
+		updateResult, err := configuration.MongoClient.UpateOrder(order)
 		if err != nil {
 			log.Println("Unable to update order in DB")
 			return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to update order in DB", StatusCode: 500})

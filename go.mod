@@ -3,18 +3,17 @@ module github.com/MikeB1124/stocks-order-sync-lambda
 go 1.22.4
 
 require (
-	github.com/MikeB1124/stocks-lambda-utils v1.0.0
-	github.com/alpacahq/alpaca-trade-api-go/v3 v3.4.0
+	github.com/MikeB1124/stocks-lambda-utils/v2 v2.0.0
 	github.com/aquasecurity/lmdrouter v0.4.4
 	github.com/aws/aws-lambda-go v1.47.0
 	github.com/aws/aws-sdk-go-v2 v1.30.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.21
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.31.1
-	go.mongodb.org/mongo-driver v1.15.1
 )
 
 require (
 	cloud.google.com/go v0.99.0 // indirect
+	github.com/alpacahq/alpaca-trade-api-go/v3 v3.4.0 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.21 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.8 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.12 // indirect
@@ -36,6 +35,7 @@ require (
 	github.com/xdg-go/scram v1.1.2 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
+	go.mongodb.org/mongo-driver v1.15.1 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
