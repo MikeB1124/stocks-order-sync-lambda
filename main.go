@@ -10,7 +10,7 @@ var router *lmdrouter.Router
 
 func init() {
 	router = lmdrouter.NewRouter("")
-	router.Route("POST", "/sync/orders", controllers.HelloWorld)
+	router.Route("POST", "/sync/orders", controllers.SyncAlpacaOrderWithDB)
 }
 
 func main() {
