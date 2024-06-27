@@ -3,7 +3,7 @@ module github.com/MikeB1124/stocks-order-sync-lambda
 go 1.22.4
 
 require (
-	github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.2
+	github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.16
 	github.com/aquasecurity/lmdrouter v0.4.4
 	github.com/aws/aws-lambda-go v1.47.0
 )

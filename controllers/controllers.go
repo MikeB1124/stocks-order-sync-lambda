@@ -28,8 +28,8 @@ func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequ
 		} else {
 			orderType = "exitOrder"
 		}
-
-		updateResult, err := configuration.MongoClient.UpateOrder(order, orderType)
+		formattedOrder := stockslambdautils.FormatAlpacaOrderForDB(&order)
+		updateResult, err := configuration.MongoClient.UpateOrder(*formattedOrder, orderType)
 		if err != nil {
 			log.Println("Unable to update order in DB")
 			return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to update order in DB", StatusCode: 500})
