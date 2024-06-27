@@ -49,6 +49,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.0 h1:Qu2bB+C8agm1NqO+avFL3ATXAAtoMXHbN8wKT2dBjYs=
 github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.0/go.mod h1:zW1mATX04E32pbJRQWwGAd2gScTtR+2jMxEHHcCKRRE=
+github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.2 h1:0gXblNRAc1CzbbRa1+4AOg7ZFbY1ajlXskUw3GyfZ9M=
+github.com/MikeB1124/stocks-lambda-utils/v2 v2.1.2/go.mod h1:zW1mATX04E32pbJRQWwGAd2gScTtR+2jMxEHHcCKRRE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/alpacahq/alpaca-trade-api-go/v3 v3.4.0 h1:tcglbJ4agWXt9MNisK1cnoigRDmWEX85yb94IkQ52BU=
 github.com/alpacahq/alpaca-trade-api-go/v3 v3.4.0/go.mod h1:yQZTQ0N6Rfo8Sg7ishqAZ1i/ybMZBqo1xSW8M/LXqJg=
