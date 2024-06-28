@@ -12,7 +12,7 @@ import (
 func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	// Fetch all Alpaca orders
-	allAlpacaOrders, err := configuration.AlpacaClient.GetAllAlpacaOrders()
+	allAlpacaOrders, err := configuration.AlpacaClient.GetAlpacaOrders("all", []string{}, true)
 	if err != nil {
 		log.Println("Unable to get Alpaca orders")
 		return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get Alpaca orders", StatusCode: 500})
