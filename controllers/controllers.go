@@ -10,33 +10,30 @@ import (
 )
 
 func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-
-	// Fetch all Alpaca orders
-	allAlpacaOrders, err := configuration.AlpacaClient.GetAlpacaOrders("all", []string{}, true)
+	// Get all open trades from DB
+	openTrades, err := configuration.MongoClient.GetOpenTrades()
 	if err != nil {
-		log.Println("Unable to get Alpaca orders")
-		return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get Alpaca orders", StatusCode: 500})
+		log.Println("Unable to get open trades from DB")
+		return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get open trades from DB", StatusCode: 500})
 	}
 
-	// Update DB with Alpaca orders
-	totalUpdatedOrders := 0
-	orderIDsNotInDB := []string{}
-	for _, order := range allAlpacaOrders {
-		formattedOrder := stockslambdautils.FormatAlpacaOrderForDB(&order)
-		updateResult, err := configuration.MongoClient.UpateOrder(*formattedOrder)
+	var openTradeUpdates []stockslambdautils.AlpacaTrade
+	for _, trade := range openTrades {
+		alpacaOrder, err := configuration.AlpacaClient.GetAlpacaOrderByID(trade.Order.ID)
 		if err != nil {
-			log.Println("Unable to update order in DB")
-			return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to update order in DB", StatusCode: 500})
+			log.Println("Unable to get Alpaca trade")
+			return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get Alpaca trade", StatusCode: 500})
 		}
-		if updateResult.ModifiedCount == 0 {
-			orderIDsNotInDB = append(orderIDsNotInDB, order.ID)
-		} else {
-			totalUpdatedOrders++
-		}
+		formattedOrder := stockslambdautils.FormatAlpacaOrderForDB(alpacaOrder)
+		trade.Order = formattedOrder
+		openTradeUpdates = append(openTradeUpdates, trade)
 	}
-	log.Printf("Total alpaca orders %d and total DB updates %d\n", len(allAlpacaOrders), totalUpdatedOrders)
-	if len(orderIDsNotInDB) > 0 {
-		log.Println("Alpaca Order IDs not found in DB: %v", orderIDsNotInDB)
+
+	updateResult, err := configuration.MongoClient.BulkUpdateTrades(openTradeUpdates)
+	if err != nil {
+		log.Println("Unable to update trades in DB")
+		return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to update trades in DB", StatusCode: 500})
 	}
+	log.Printf("Total trades updated: %d\n", updateResult.ModifiedCount)
 	return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "OK", StatusCode: 200})
 }
