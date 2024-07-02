@@ -22,7 +22,7 @@ func SyncAlpacaOrderWithDB(ctx context.Context, event events.APIGatewayProxyRequ
 		alpacaOrder, err := configuration.AlpacaClient.GetAlpacaOrderByID(trade.Order.ID)
 		if err != nil {
 			log.Printf("Unable to get Alpaca trade with ID: %s\n", trade.Order.ID)
-			return stockslambdautils.CreateResponse(stockslambdautils.Response{Message: "Unable to get Alpaca trade", StatusCode: 500})
+			continue
 		}
 		formattedOrder := stockslambdautils.FormatAlpacaOrderForDB(alpacaOrder)
 		trade.Order = formattedOrder
